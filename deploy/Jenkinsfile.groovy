@@ -1,6 +1,6 @@
 def branch_env_map = [
-        dev: 'dev',
-        dev2: 'dev2',
+        dev  : 'dev',
+        dev2 : 'dev2',
         stage: 'stage',
 ]
 
@@ -207,12 +207,13 @@ pipeline {
 //                    env.DEPLOY_ENV = DEPLOY_ENV
 //                    env.IMAGE_NAME = IMAGE_NAME
 //                }
-                withAWS(credentials: 'dev-eks'){
+                withAWS(credentials: 'dev-eks') {
                     sh "aws eks --region us-west-2 update-kubeconfig --name dev-eks && kubectl get svc"
                     sh "kubectl version"
                     sh "kubectl cluster-info"
-                    sh "kubectl apply -f deploy/"
-                }            }
+                    sh "kubectl apply -f deploy/ --validate=false"
+                }
+            }
         }
     }
 //    post {
