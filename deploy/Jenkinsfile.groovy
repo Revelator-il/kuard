@@ -211,7 +211,7 @@ pipeline {
                     sh "aws eks --region us-west-2 update-kubeconfig --name dev-eks && kubectl get svc"
                     sh "kubectl version"
                     sh "kubectl cluster-info"
-                    sh "kubectl apply -f . deploy.yaml "
+                    sh "kubectl apply -f deploy/"
                 }            }
         }
     }
