@@ -190,7 +190,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 docker {
-                    image 'demoontz/kubectl-aws2:6'
+                    image 'demoontz/kubectl-aws2:7'
                     args "-u 0"
                 }
             }
