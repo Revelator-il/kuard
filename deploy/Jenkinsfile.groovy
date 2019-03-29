@@ -215,38 +215,38 @@ pipeline {
                 }            }
         }
     }
-    post {
-        always {
-            script {
-                status_color = [
-                        SUCCESS: "good",
-                        UNSTABLE: "warning",
-                        FAILURE: "danger",
-                        ABORTED: "danger",
-                ]
-                github_status = [
-                        SUCCESS: "success",
-                        UNSTABLE: "failure",
-                        FAILURE: "failure",
-                        ABORTED: "failure",
-                ]
-            }
-            slackSend(
-                    color: "${status_color[currentBuild.currentResult]}",
-                    channel: '#v2-ci',
-                    message: "App: ${APP_NAME},\n Branch: ${BRANCH_NAME},\n Commit: ${VERSION},\n Result: ${currentBuild.currentResult},\n Details: ${BUILD_URL}",
-                    teamDomain: 'revelator.com',
-                    tokenCredentialId: 'jci_slack_status'
-            )
-            withCredentials([string(credentialsId: 'jci_git_status', variable: 'access_token')]) {
-                set_git_status([
-                        status: "${github_status[currentBuild.currentResult]}",
-                        description: "JCI build status: ${currentBuild.currentResult}.toLowerCase()",
-                        git_repo: "${git_repo}",
-                        git_commit: "${git_commit}",
-                        access_token: "${access_token}"
-                ])
-            }
-        }
-    }
+//    post {
+//        always {
+//            script {
+//                status_color = [
+//                        SUCCESS: "good",
+//                        UNSTABLE: "warning",
+//                        FAILURE: "danger",
+//                        ABORTED: "danger",
+//                ]
+//                github_status = [
+//                        SUCCESS: "success",
+//                        UNSTABLE: "failure",
+//                        FAILURE: "failure",
+//                        ABORTED: "failure",
+//                ]
+//            }
+//            slackSend(
+//                    color: "${status_color[currentBuild.currentResult]}",
+//                    channel: '#v2-ci',
+//                    message: "App: ${APP_NAME},\n Branch: ${BRANCH_NAME},\n Commit: ${VERSION},\n Result: ${currentBuild.currentResult},\n Details: ${BUILD_URL}",
+//                    teamDomain: 'revelator.com',
+//                    tokenCredentialId: 'jci_slack_status'
+//            )
+//            withCredentials([string(credentialsId: 'jci_git_status', variable: 'access_token')]) {
+//                set_git_status([
+//                        status: "${github_status[currentBuild.currentResult]}",
+//                        description: "JCI build status: ${currentBuild.currentResult}.toLowerCase()",
+//                        git_repo: "${git_repo}",
+//                        git_commit: "${git_commit}",
+//                        access_token: "${access_token}"
+//                ])
+//            }
+//        }
+//    }
 }
